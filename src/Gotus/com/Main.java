@@ -25,11 +25,11 @@ class TestFrame extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
 
-                ((Game)panel.getComponent(0)).showField();
+                ((GameData)panel.getComponent(0)).showField();
             }
         });
 
-        panel.add(new  Game());
+        panel.add(new GameData());
         setPreferredSize(new Dimension(300, 300));
         getContentPane().add(panel);
     }

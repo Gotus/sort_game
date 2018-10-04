@@ -26,14 +26,14 @@ class Cell {
     }
 }
 
-public class Game extends Component{
+public class GameData extends Component{
 
     List<List<CellState>> field;
     private static final int FIELD_SIZE = 5;
     private static final int NUM_OF_GAME_CHIPS = 15;
 
 
-    Game() {
+    GameData() {
 
         //Инициализация игрового поля
         field = new ArrayList<List<CellState>>(5);
