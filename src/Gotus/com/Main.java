@@ -24,8 +24,8 @@ class TestFrame extends JFrame {
         panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-
-                System.out.println(e.getKeyCode());
+                
+                ((Game)panel.getComponent(0)).showField();
             }
         });
 
