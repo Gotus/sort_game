@@ -21,12 +21,11 @@ class TestFrame extends JFrame {
         panel.setLayout(new BorderLayout());
         panel.setFocusable(true);
 
-        //Добавить листенер на панель и ловить нажатия клавиш им, либо добавить листенер в Game, а Game добавить в panel
-
         panel.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println(e.getKeyChar());
+
+                System.out.println(e.getKeyCode());
             }
         });
 
