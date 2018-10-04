@@ -1,5 +1,7 @@
 package Gotus.com;
 
+import javafx.scene.image.Image;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -30,8 +32,15 @@ class TestFrame extends JFrame {
         });
 
         panel.add(new GameData());
-        setPreferredSize(new Dimension(300, 300));
+
+        JLabel label = new JLabel("Расставьте фишки соответственно цветам, стоящим над столбцом");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.NORTH);
+
+        setPreferredSize(new Dimension(600, 600));
         getContentPane().add(panel);
+        getContentPane().add(label);
+        setVisible(true);
     }
 }
 
