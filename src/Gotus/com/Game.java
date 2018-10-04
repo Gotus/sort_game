@@ -142,10 +142,6 @@ public class Game extends Component{
     public void move() {
 
     }
-
-    public void run() {
-
-    }
 }
 
 
