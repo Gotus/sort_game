@@ -1,5 +1,7 @@
 package com.gotus;
 
+import layout_managers.GameLayoutManager;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.accessibility.*;
@@ -20,10 +22,11 @@ class TestFrame extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        getContentPane().setLayout(new  GridLayout());
-
+        getContentPane().setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         //panel.setLayout(new GridLayout());
+
+
         panel.setFocusable(true);
 
         panel.addKeyListener(new KeyAdapter() {
@@ -46,18 +49,19 @@ class TestFrame extends JFrame {
         JLabel label = new JLabel("Расставьте фишки соответственно цветам, стоящим над столбцом");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.NORTH);
+        label.setAlignmentY(100f);
 
         Squares squares = new Squares();
 
-        setPreferredSize(new Dimension(600, 600));
-        getContentPane().add(panel);
-        getContentPane().add(label);
-        getContentPane().add(squares);
+        setPreferredSize(new Dimension(800, 800));
+        getContentPane().add(panel, BorderLayout.SOUTH);
+        getContentPane().add(label, BorderLayout.NORTH);
+        getContentPane().add(squares, BorderLayout.CENTER);
 
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                squares.addSquare(150 + j*60, 150 + i*60, 50, 50);
+                squares.addSquare(250 + j*60, 250 + i*60, 50, 50);
             }
         }
         //setLocationRelativeTo(null);

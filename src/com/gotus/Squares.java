@@ -7,8 +7,13 @@ import java.util.List;
 
 public class Squares extends JPanel {
 
-    private static final int HEIGHT = 15;
+    private static final int HEIGHT = 50;
     private static final int WIDTH = HEIGHT;
+    private static final int STEP = 10;
+    private static final int NUM_ROWS = 5;
+    private static final int NUM_COLUMNS = 5;
+
+
 
     private List<Rectangle> squares = new ArrayList<Rectangle>();
 
@@ -20,7 +25,8 @@ public class Squares extends JPanel {
     }
 
     public Dimension getPreferedSize() {
-        return new Dimension(WIDTH, HEIGHT);
+        return new Dimension(NUM_COLUMNS * (STEP + WIDTH),
+                NUM_ROWS * (STEP + HEIGHT));
     }
 
     protected void paintComponent(Graphics g) {
