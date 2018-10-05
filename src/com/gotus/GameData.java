@@ -77,36 +77,13 @@ public class GameData extends Component {
             while (is_not_generated) {
 
                 value = rand.nextInt(3);
-                switch (value) {
-                    case 0:
-                        if (num_type[value] > 0) {
-                            x = available_cells.get(i).getX();
-                            y = available_cells.get(i).getY();
-                            field.get(y).set(x, CellState.TYPE1);
-                            num_type[value]--;
-                            is_not_generated = false;
-                        }
-                        break;
-                    case 1:
-                        if (num_type[value] > 0) {
 
-                            x = available_cells.get(i).getX();
-                            y = available_cells.get(i).getY();
-                            field.get(y).set(x, CellState.TYPE2);
-                            num_type[value]--;
-                            is_not_generated = false;
-                        }
-                        break;
-                    case 2:
-                        if (num_type[value] > 0) {
-
-                            x = available_cells.get(i).getX();
-                            y = available_cells.get(i).getY();
-                            field.get(y).set(x, CellState.TYPE3);
-                            num_type[value]--;
-                            is_not_generated = false;
-                        }
-                        break;
+                if (num_type[value] > 0) {
+                    x = available_cells.get(i).getX();
+                    y = available_cells.get(i).getY();
+                    field.get(y).set(x, defineCellState(value));
+                    num_type[value]--;
+                    is_not_generated = false;
                 }
             }
         }
@@ -123,6 +100,19 @@ public class GameData extends Component {
 
             System.out.println();
         }
+    }
+
+    private CellState defineCellState(int type) {
+        switch (type) {
+            case 0:
+                return CellState.TYPE1;
+            case 1:
+                return CellState.TYPE2;
+            case 2:
+                return CellState.TYPE3;
+        }
+
+        return null;
     }
 
     public void move() {
