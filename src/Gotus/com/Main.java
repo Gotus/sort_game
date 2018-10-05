@@ -27,6 +27,13 @@ class TestFrame extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
 
+                int keyCode = e.getKeyCode();
+
+                switch (keyCode) {
+                    case 27:
+                        System.exit(0);
+                        break;
+                }
                 ((GameData)panel.getComponent(0)).showField();
             }
         });
