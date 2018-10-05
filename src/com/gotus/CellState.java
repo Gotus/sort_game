@@ -6,4 +6,5 @@ public enum CellState {
     TYPE1,
     TYPE2,
     TYPE3,
+
 }

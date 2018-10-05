@@ -58,9 +58,7 @@ public class GameData extends Component {
     }
 
     private void placeGameChip() {
-        int num_type_1 = 5;
-        int num_type_2 = 5;
-        int num_type_3 = 5;
+        int num_type[] = {5, 5, 5};
         int value = 0;
         List<Cell> available_cells = new ArrayList<Cell>();
         Random rand = new Random();
@@ -78,34 +76,34 @@ public class GameData extends Component {
             int y = 0;
             while (is_not_generated) {
 
-                value = rand.nextInt(3) + 1;
+                value = rand.nextInt(3);
                 switch (value) {
-                    case 1:
-                        if (num_type_1 > 0) {
+                    case 0:
+                        if (num_type[value] > 0) {
                             x = available_cells.get(i).getX();
                             y = available_cells.get(i).getY();
                             field.get(y).set(x, CellState.TYPE1);
-                            num_type_1--;
+                            num_type[value]--;
                             is_not_generated = false;
                         }
                         break;
-                    case 2:
-                        if (num_type_2 > 0) {
+                    case 1:
+                        if (num_type[value] > 0) {
 
                             x = available_cells.get(i).getX();
                             y = available_cells.get(i).getY();
                             field.get(y).set(x, CellState.TYPE2);
-                            num_type_2--;
+                            num_type[value]--;
                             is_not_generated = false;
                         }
                         break;
-                    case 3:
-                        if (num_type_3 > 0) {
+                    case 2:
+                        if (num_type[value] > 0) {
 
                             x = available_cells.get(i).getX();
                             y = available_cells.get(i).getY();
                             field.get(y).set(x, CellState.TYPE3);
-                            num_type_3--;
+                            num_type[value]--;
                             is_not_generated = false;
                         }
                         break;
@@ -126,7 +124,6 @@ public class GameData extends Component {
             System.out.println();
         }
     }
-
 
     public void move() {
 
