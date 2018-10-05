@@ -1,6 +1,8 @@
 package com.gotus;
 
 import javax.swing.*;
+import javax.swing.border.*;
+import javax.accessibility.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -9,7 +11,8 @@ class TestFrame extends JFrame {
     private JLabel label;
 
     public TestFrame() {
-        super("Test Frame");
+        JFrame frame = new JFrame("Test Frame");
+        
         createGUI();
     }
 
@@ -42,9 +45,20 @@ class TestFrame extends JFrame {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.NORTH);
 
+        Squares squares = new Squares();
+
         setPreferredSize(new Dimension(600, 600));
         getContentPane().add(panel);
         getContentPane().add(label);
+        getContentPane().add(squares);
+
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                squares.addSquare(150 + j*60, 150 + i*60, 50, 50);
+            }
+        }
+        //setLocationRelativeTo(null);
         setVisible(true);
     }
 }
