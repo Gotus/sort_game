@@ -1,4 +1,4 @@
-package Gotus.com;
+package com.gotus;
 
 public enum CellState {
     FREE,

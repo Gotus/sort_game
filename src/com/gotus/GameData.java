@@ -1,11 +1,9 @@
-package Gotus.com;
+package com.gotus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.awt.Component;
-
-import Gotus.com.CellState;
 
 class Cell {
     private int x;
@@ -26,7 +24,7 @@ class Cell {
     }
 }
 
-public class GameData extends Component{
+public class GameData extends Component {
 
     List<List<CellState>> field;
     private static final int FIELD_SIZE = 5;
@@ -54,16 +52,7 @@ public class GameData extends Component{
         field.get(2).set(3, CellState.BLOCKED);
         field.get(4).set(1, CellState.BLOCKED);
         field.get(4).set(3, CellState.BLOCKED);
-        /*
-        for (int i = 0; i < FIELD_SIZE; i++) {
 
-            for (int j = 0; j < FIELD_SIZE; j++) {
-                System.out.print(field.get(i).get(j) + " ");
-            }
-
-            System.out.println();
-        }
-        */
         //Расстановка фишек
         placeGameChip();
     }

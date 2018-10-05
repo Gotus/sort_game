@@ -1,6 +1,4 @@
-package Gotus.com;
-
-import javafx.scene.image.Image;
+package com.gotus;
 
 import javax.swing.*;
 import java.awt.*;
