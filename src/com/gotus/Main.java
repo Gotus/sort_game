@@ -20,8 +20,10 @@ class TestFrame extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        getContentPane().setLayout(new  GridLayout());
+
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        //panel.setLayout(new GridLayout());
         panel.setFocusable(true);
 
         panel.addKeyListener(new KeyAdapter() {
