@@ -26,12 +26,7 @@ class TestFrame extends JFrame {
 
         GameData gameData = new GameData();
 
-        gameData.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                gameData.showField();
-            }
-        });
+
 
         JLabel label = new JLabel("Расставьте фишки соответственно цветам, стоящим над столбцом");
         label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -40,6 +35,16 @@ class TestFrame extends JFrame {
         setPreferredSize(new Dimension(800, 800));
         getContentPane().add(gameData, BorderLayout.CENTER);
         getContentPane().add(label, BorderLayout.NORTH);
+
+        gameData.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                gameData.showField();
+            }
+        });
+
+        gameData.setFocusable(true);
+        gameData.requestFocusInWindow();
 
         //setLocationRelativeTo(null);
         setVisible(true);
