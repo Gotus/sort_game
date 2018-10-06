@@ -1,9 +1,10 @@
 package com.gotus;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.awt.Component;
 
 class Cell {
     private int x;
@@ -24,11 +25,13 @@ class Cell {
     }
 }
 
-public class GameData extends Component {
+public class GameData extends JPanel {
 
     List<List<CellState>> field;
     private static final int FIELD_SIZE = 5;
     private static final int NUM_OF_GAME_CHIPS = 15;
+
+    private Squares squares = new Squares();
 
 
     GameData() {
@@ -55,7 +58,8 @@ public class GameData extends Component {
 
         //Расстановка фишек
         placeGameChip();
-    }
+
+}
 
     private void placeGameChip() {
         int num_type[] = {5, 5, 5};
@@ -87,8 +91,6 @@ public class GameData extends Component {
                 }
             }
         }
-
-        showField();
     }
 
     public void showField() {
@@ -115,8 +117,41 @@ public class GameData extends Component {
         return null;
     }
 
-    public void move() {
+    public List<List<CellState>> getField() {
+        return this.field;
+    }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+
+        int size = squares.getSIZE();
+        int step = squares.getSTEP();
+        for (int i = 0; i < squares.getNUM_COLUMNS(); i++) {
+            for (int j = 0; j < squares.getNUM_ROWS(); j++) {
+                switch (field.get(i).get(j)) {
+                    case TYPE1:
+                        g.setColor(Color.RED);
+                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        break;
+                    case TYPE2:
+                        g.setColor(Color.GREEN);
+                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        break;
+                    case TYPE3:
+                        g.setColor(Color.BLUE);
+                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        break;
+                    case BLOCKED:
+                        g.setColor(Color.BLACK);
+                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        break;
+                    case FREE:
+                        g.setColor(Color.WHITE);
+                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        break;
+                }
+            }
+        }
     }
 }
 
