@@ -39,7 +39,34 @@ class TestFrame extends JFrame {
         gameData.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                gameData.showField();
+                System.out.println(e.getKeyCode());
+            }
+        });
+
+        gameData.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Mouse was clicked");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
 
