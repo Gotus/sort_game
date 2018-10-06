@@ -7,11 +7,10 @@ import java.util.List;
 
 public class Squares extends JPanel {
 
-    private static final int HEIGHT = 50;
-    private static final int WIDTH = HEIGHT;
-    private static final int STEP = 10;
-    private static final int NUM_ROWS = 5;
-    private static final int NUM_COLUMNS = 5;
+    private final int SIZE = 50;
+    private final int STEP = 10;
+    private final int NUM_ROWS = 5;
+    private final int NUM_COLUMNS = 5;
 
 
 
@@ -35,5 +34,22 @@ public class Squares extends JPanel {
         for (Rectangle rect : squares) {
             g2.draw(rect);
         }
+    }
+
+    public int getSIZE() {
+
+        return SIZE;
+    }
+
+    public int getSTEP() {
+        return STEP;
+    }
+
+    public int getNUM_ROWS() {
+        return NUM_ROWS;
+    }
+
+    public int getNUM_COLUMNS() {
+        return NUM_COLUMNS;
     }
 }
