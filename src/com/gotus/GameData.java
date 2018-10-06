@@ -131,23 +131,23 @@ public class GameData extends JPanel {
                 switch (field.get(i).get(j)) {
                     case TYPE1:
                         g.setColor(Color.RED);
-                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
                         break;
                     case TYPE2:
                         g.setColor(Color.GREEN);
-                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
                         break;
                     case TYPE3:
                         g.setColor(Color.BLUE);
-                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
                         break;
                     case BLOCKED:
                         g.setColor(Color.BLACK);
-                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
                         break;
                     case FREE:
                         g.setColor(Color.WHITE);
-                        g.drawRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
                         break;
                 }
             }
