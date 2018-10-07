@@ -106,7 +106,7 @@ public class GameData extends JPanel {
             }
         }
 
-        for (int i = 0; i < available_cells.size(); i++) {
+        for (Cell i: available_cells) {
             boolean is_not_generated = true;
             int x;
             int y;
@@ -115,8 +115,8 @@ public class GameData extends JPanel {
                 value = rand.nextInt(3);
 
                 if (num_type[value] > 0) {
-                    x = available_cells.get(i).getX();
-                    y = available_cells.get(i).getY();
+                    x = i.getX();
+                    y = i.getY();
                     field.get(y).get(x).setCellState(defineCellState(value));
                     num_type[value]--;
                     is_not_generated = false;
