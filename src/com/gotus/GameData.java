@@ -64,7 +64,7 @@ public class GameData extends JPanel {
     GameData() {
 
         //Инициализация игрового поля
-        field = new ArrayList<List<Cell>>(5);
+        field = new ArrayList<List<Cell>>(FIELD_SIZE);
 
         for (int i = 0; i < FIELD_SIZE; i++) {
 

@@ -39,6 +39,7 @@ class TestFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 System.out.println(e.getKeyCode());
                 gameData.move(e.getKeyCode());
+                repaint();
             }
         });
 
