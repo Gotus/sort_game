@@ -54,7 +54,7 @@ class Cell {
 
 public class GameData extends JPanel {
 
-    List<List<Cell>> field;
+    private List<List<Cell>> field;
     private static final int FIELD_SIZE = 5;
 
     private Squares squares = new Squares();
@@ -66,11 +66,11 @@ public class GameData extends JPanel {
     GameData() {
 
         //Инициализация игрового поля
-        field = new ArrayList<List<Cell>>(FIELD_SIZE);
+        field = new ArrayList<>(FIELD_SIZE);
 
         for (int i = 0; i < FIELD_SIZE; i++) {
 
-            field.add(new ArrayList<Cell>(FIELD_SIZE));
+            field.add(new ArrayList<>(FIELD_SIZE));
             for (int j = 0; j < FIELD_SIZE; j++) {
 
                 field.get(i).add(new  Cell(j, i, CellState.FREE));
@@ -95,8 +95,8 @@ public class GameData extends JPanel {
 
     private void placeGameChip() {
         int num_type[] = {5, 5, 5};
-        int value = 0;
-        List<Cell> available_cells = new ArrayList<Cell>();
+        int value;
+        List<Cell> available_cells = new ArrayList<>();
         Random rand = new Random();
 
         for (int i = 0; i < FIELD_SIZE; i++) {
@@ -108,8 +108,8 @@ public class GameData extends JPanel {
 
         for (int i = 0; i < available_cells.size(); i++) {
             boolean is_not_generated = true;
-            int x = 0;
-            int y = 0;
+            int x;
+            int y;
             while (is_not_generated) {
 
                 value = rand.nextInt(3);
@@ -196,7 +196,7 @@ public class GameData extends JPanel {
         }
     }
 
-    public void setSelectedCell(int x, int y) {
+    void setSelectedCell(int x, int y) {
 
         if (gameOver) {
             return;
@@ -215,11 +215,7 @@ public class GameData extends JPanel {
         }
     }
 
-    public Cell getSelectedCell() {
-        return this.selectedCell;
-    }
-
-    public void move(int keyCode) {
+    void move(int keyCode) {
 
         if (gameOver) {
             if (keyCode == 27) {
