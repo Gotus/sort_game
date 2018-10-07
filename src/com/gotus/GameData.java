@@ -29,7 +29,6 @@ public class GameData extends JPanel {
 
     List<List<CellState>> field;
     private static final int FIELD_SIZE = 5;
-    private static final int NUM_OF_GAME_CHIPS = 15;
 
     private Squares squares = new Squares();
 
