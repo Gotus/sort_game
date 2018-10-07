@@ -1,22 +1,16 @@
 package com.gotus;
 
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.accessibility.*;
 import java.awt.*;
 import java.awt.event.*;
 
 class TestFrame extends JFrame {
 
-    private JLabel label;
-
-    public TestFrame() {
-        JFrame frame = new JFrame("Test Frame");
-        
+    TestFrame() {
         createGUI();
     }
 
-    public void createGUI() {
+    private void createGUI() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -72,7 +66,6 @@ class TestFrame extends JFrame {
         gameData.setFocusable(true);
         gameData.requestFocusInWindow();
 
-        //setLocationRelativeTo(null);
         setVisible(true);
     }
 }
