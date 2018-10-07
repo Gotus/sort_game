@@ -1,7 +1,5 @@
 package com.gotus;
 
-import layout_managers.GameLayoutManager;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.accessibility.*;
