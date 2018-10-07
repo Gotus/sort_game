@@ -37,7 +37,6 @@ class TestFrame extends JFrame {
         gameData.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println(e.getKeyCode());
                 gameData.move(e.getKeyCode());
                 repaint();
             }
@@ -47,9 +46,6 @@ class TestFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 gameData.setSelectedCell(e.getX(), e.getY());
-                System.out.println(e.getX() + " " + e.getY());
-                System.out.println(gameData.getSelectedCell().getX() + " " +
-                        gameData.getSelectedCell().getY() + " " + gameData.getSelectedCell().getCellState());;
             }
 
             @Override

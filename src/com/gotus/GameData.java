@@ -61,6 +61,8 @@ public class GameData extends JPanel {
 
     private Cell selectedCell;
 
+    private boolean gameOver;
+
     GameData() {
 
         //Инициализация игрового поля
@@ -87,6 +89,7 @@ public class GameData extends JPanel {
         placeGameChip();
 
         selectedCell = field.get(0).get(0);
+        gameOver = false;
 
 }
 
@@ -122,6 +125,20 @@ public class GameData extends JPanel {
         }
     }
 
+    private void placeGameChipAlmostVictory() {
+
+        CellState stateArray[] = {CellState.TYPE1, CellState.TYPE2, CellState.TYPE3};
+
+        for (int j = 0; j < FIELD_SIZE; j += 2) {
+            for (int i = 0; i < FIELD_SIZE; i++) {
+                field.get(i).get(j).setCellState(stateArray[j/2]);
+            }
+        }
+
+        field.get(1).get(0).setCellState(CellState.FREE);
+        field.get(1).get(1).setCellState(CellState.TYPE1);
+    }
+
     public void showField() {
         for (int i = 0; i < FIELD_SIZE; i++) {
 
@@ -144,10 +161,6 @@ public class GameData extends JPanel {
         }
 
         return null;
-    }
-
-    public List<List<Cell>> getField() {
-        return this.field;
     }
 
     @Override
@@ -185,6 +198,10 @@ public class GameData extends JPanel {
 
     public void setSelectedCell(int x, int y) {
 
+        if (gameOver) {
+            return;
+        }
+
         int i = (y - 250) / 60;
         int j = (x - 250) / 60;
 
@@ -203,6 +220,11 @@ public class GameData extends JPanel {
     }
 
     public void move(int keyCode) {
+
+        if (gameOver) {
+            return;
+        }
+
         int x = selectedCell.getX();
         int y = selectedCell.getY();
         CellState state = selectedCell.getCellState();
@@ -214,7 +236,7 @@ public class GameData extends JPanel {
                     field.get(y).get(x - 1).setCellState(state);
                     field.get(y).get(x).setCellState(CellState.FREE);
                     selectedCell = field.get(y).get(x - 1);
-                    showField();
+                    checkGameOver();
                 }
                 break;
             case 38:
@@ -223,7 +245,7 @@ public class GameData extends JPanel {
                     field.get(y - 1).get(x).setCellState(state);
                     field.get(y).get(x).setCellState(CellState.FREE);
                     selectedCell = field.get(y - 1).get(x);
-                    showField();
+                    checkGameOver();
                 }
                 break;
             case 39:
@@ -232,7 +254,7 @@ public class GameData extends JPanel {
                     field.get(y).get(x + 1).setCellState(state);
                     field.get(y).get(x).setCellState(CellState.FREE);
                     selectedCell = field.get(y).get(x + 1);
-                    showField();
+                    checkGameOver();
                 }
                 break;
             case 40:
@@ -241,10 +263,25 @@ public class GameData extends JPanel {
                     field.get(y + 1).get(x).setCellState(state);
                     field.get(y).get(x).setCellState(CellState.FREE);
                     selectedCell = field.get(y + 1).get(x);
-                    showField();
+                    checkGameOver();
                 }
                 break;
         }
+    }
+
+    private void checkGameOver() {
+        CellState stateArray[] = {CellState.TYPE1, CellState.TYPE2, CellState.TYPE3};
+
+        for (int j = 0; j < FIELD_SIZE; j += 2) {
+            for (int i = 0; i < FIELD_SIZE; i++) {
+                if (field.get(i).get(j).getCellState() != stateArray[j/2]) {
+                    return;
+                }
+            }
+        }
+
+        System.out.println("You Win!");
+        gameOver = true;
     }
 }
 
