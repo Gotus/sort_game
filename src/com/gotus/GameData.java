@@ -24,32 +24,23 @@ class Cell {
         this.cellState = cellState;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
+    int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public CellState getCellState() {
+    CellState getCellState() {
         return this.cellState;
     }
 
-    public void setCellState(CellState cellState) {
+    void setCellState(CellState cellState) {
         this.cellState = cellState;
     }
 
 }
-
 
 
 public class GameData extends JPanel {
