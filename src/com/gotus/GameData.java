@@ -28,8 +28,16 @@ class Cell {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     public int getY() {
         return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public CellState getCellState() {
@@ -118,7 +126,7 @@ public class GameData extends JPanel {
         for (int i = 0; i < FIELD_SIZE; i++) {
 
             for (int j = 0; j < FIELD_SIZE; j++) {
-                System.out.print(field.get(i).get(j) + " ");
+                System.out.print(field.get(i).get(j).getCellState() + " ");
             }
 
             System.out.println();
@@ -192,6 +200,51 @@ public class GameData extends JPanel {
 
     public Cell getSelectedCell() {
         return this.selectedCell;
+    }
+
+    public void move(int keyCode) {
+        int x = selectedCell.getX();
+        int y = selectedCell.getY();
+        CellState state = selectedCell.getCellState();
+        switch (keyCode) {
+            case 37:
+                //движение влево
+
+                if ((x > 0) && (field.get(y).get(x - 1).getCellState() == CellState.FREE)) {
+                    field.get(y).get(x - 1).setCellState(state);
+                    field.get(y).get(x).setCellState(CellState.FREE);
+                    selectedCell = field.get(y).get(x - 1);
+                    showField();
+                }
+                break;
+            case 38:
+                //движение вверх
+                if ((y > 0) && (field.get(y - 1).get(x).getCellState() == CellState.FREE)) {
+                    field.get(y - 1).get(x).setCellState(state);
+                    field.get(y).get(x).setCellState(CellState.FREE);
+                    selectedCell = field.get(y - 1).get(x);
+                    showField();
+                }
+                break;
+            case 39:
+                //движение вправо
+                if ((x < (FIELD_SIZE - 1)) && (field.get(y).get(x + 1).getCellState() == CellState.FREE)) {
+                    field.get(y).get(x + 1).setCellState(state);
+                    field.get(y).get(x).setCellState(CellState.FREE);
+                    selectedCell = field.get(y).get(x + 1);
+                    showField();
+                }
+                break;
+            case 40:
+                //движение вниз
+                if ((y < (FIELD_SIZE - 1)) && (field.get(y + 1).get(x).getCellState() == CellState.FREE)) {
+                    field.get(y + 1).get(x).setCellState(state);
+                    field.get(y).get(x).setCellState(CellState.FREE);
+                    selectedCell = field.get(y + 1).get(x);
+                    showField();
+                }
+                break;
+        }
     }
 }
 

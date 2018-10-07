@@ -38,6 +38,7 @@ class TestFrame extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 System.out.println(e.getKeyCode());
+                gameData.move(e.getKeyCode());
             }
         });
 
