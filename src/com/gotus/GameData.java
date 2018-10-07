@@ -222,6 +222,9 @@ public class GameData extends JPanel {
     public void move(int keyCode) {
 
         if (gameOver) {
+            if (keyCode == 27) {
+                System.exit(0);
+            }
             return;
         }
 
