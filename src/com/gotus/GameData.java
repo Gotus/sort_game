@@ -77,7 +77,7 @@ public class GameData extends JPanel {
         field.get(4).get(3).setCellState(CellState.BLOCKED);
 
         //Расстановка фишек
-        placeGameChip();
+        placeGameChipAlmostVictory();
 
         selectedCell = field.get(0).get(0);
         gameOver = false;
