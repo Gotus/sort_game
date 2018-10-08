@@ -143,30 +143,28 @@ public class GameData extends JPanel {
         int step = squares.getSTEP();
         for (int i = 0; i < squares.getNUM_COLUMNS(); i++) {
             for (int j = 0; j < squares.getNUM_ROWS(); j++) {
-                switch (field.getFieldElement(new Vector(j, i)).getCellState()) {
-                    case TYPE1:
-                        g.setColor(Color.RED);
-                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
-                        break;
-                    case TYPE2:
-                        g.setColor(Color.GREEN);
-                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
-                        break;
-                    case TYPE3:
-                        g.setColor(Color.BLUE);
-                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
-                        break;
-                    case BLOCKED:
-                        g.setColor(Color.BLACK);
-                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
-                        break;
-                    case FREE:
-                        g.setColor(Color.WHITE);
-                        g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
-                        break;
-                }
+                Color color = defineColor(field.getFieldElement(new Vector(j, i)).getCellState());
+                g.setColor(color);
+                g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
             }
         }
+    }
+
+    private Color defineColor(CellState state) {
+        switch (state) {
+            case TYPE1:
+                return Color.RED;
+            case TYPE2:
+                return Color.GREEN;
+            case TYPE3:
+                return Color.BLUE;
+            case BLOCKED:
+                return Color.BLACK;
+            case FREE:
+                return Color.WHITE;
+        }
+
+        return null;
     }
 
     void setSelectedCell(int x, int y) {
