@@ -39,7 +39,9 @@ class TestFrame extends JFrame {
         gameData.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
                 gameData.setSelectedCell(e.getX(), e.getY());
+
             }
 
             @Override

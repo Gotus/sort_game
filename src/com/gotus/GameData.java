@@ -45,7 +45,7 @@ class Cell {
 
 public class GameData extends JPanel {
 
-    private List<List<Cell>> field;
+    private Field field;
     private static final int FIELD_SIZE = 5;
 
     private Squares squares = new Squares();
@@ -56,30 +56,12 @@ public class GameData extends JPanel {
 
     GameData() {
 
-        //Инициализация игрового поля
-        field = new ArrayList<>(FIELD_SIZE);
-
-        for (int i = 0; i < FIELD_SIZE; i++) {
-
-            field.add(new ArrayList<>(FIELD_SIZE));
-            for (int j = 0; j < FIELD_SIZE; j++) {
-
-                field.get(i).add(new  Cell(j, i, CellState.FREE));
-            }
-        }
-
-        //Расстановка блоков
-        field.get(0).get(1).setCellState(CellState.BLOCKED);
-        field.get(0).get(3).setCellState(CellState.BLOCKED);
-        field.get(2).get(1).setCellState(CellState.BLOCKED);
-        field.get(2).get(3).setCellState(CellState.BLOCKED);
-        field.get(4).get(1).setCellState(CellState.BLOCKED);
-        field.get(4).get(3).setCellState(CellState.BLOCKED);
+        field = new Field();
 
         //Расстановка фишек
-        placeGameChipAlmostVictory();
+        placeGameChip();
 
-        selectedCell = field.get(0).get(0);
+        selectedCell = field.getFieldElement(new Vector(0, 0));
         gameOver = false;
 
 }
@@ -108,7 +90,7 @@ public class GameData extends JPanel {
                 if (num_type[value] > 0) {
                     x = i.getX();
                     y = i.getY();
-                    field.get(y).get(x).setCellState(defineCellState(value));
+                    field.setFieldElement(new Vector(x, y), defineCellState(value));
                     num_type[value]--;
                     is_not_generated = false;
                 }
@@ -122,19 +104,19 @@ public class GameData extends JPanel {
 
         for (int j = 0; j < FIELD_SIZE; j += 2) {
             for (int i = 0; i < FIELD_SIZE; i++) {
-                field.get(i).get(j).setCellState(stateArray[j/2]);
+                field.setFieldElement(new Vector(j, i), stateArray[j/2]);
             }
         }
 
-        field.get(1).get(0).setCellState(CellState.FREE);
-        field.get(1).get(1).setCellState(CellState.TYPE1);
+        field.setFieldElement(new Vector(1, 0), CellState.FREE);
+        field.setFieldElement(new Vector(1, 1), CellState.FREE);
     }
 
     public void showField() {
         for (int i = 0; i < FIELD_SIZE; i++) {
 
             for (int j = 0; j < FIELD_SIZE; j++) {
-                System.out.print(field.get(i).get(j).getCellState() + " ");
+                System.out.print(field.getFieldElement(new Vector(j, i)).getCellState() + " ");
             }
 
             System.out.println();
@@ -161,7 +143,7 @@ public class GameData extends JPanel {
         int step = squares.getSTEP();
         for (int i = 0; i < squares.getNUM_COLUMNS(); i++) {
             for (int j = 0; j < squares.getNUM_ROWS(); j++) {
-                switch (field.get(i).get(j).getCellState()) {
+                switch (field.getFieldElement(new Vector(j, i)).getCellState()) {
                     case TYPE1:
                         g.setColor(Color.RED);
                         g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
@@ -198,12 +180,16 @@ public class GameData extends JPanel {
 
         if ((j < FIELD_SIZE) && (i < FIELD_SIZE)
                 && (i >= 0) && (j >= 0)) {
-            Cell selectedCell = field.get(i).get(j);
+            Cell selectedCell = field.getFieldElement(new Vector(j, i));
             if ((selectedCell.getCellState() != CellState.FREE) &&
                     (selectedCell.getCellState() != CellState.BLOCKED)) {
                 this.selectedCell = selectedCell;
             }
         }
+    }
+
+    public Cell getSelectedCell() {
+        return selectedCell;
     }
 
     void move(int keyCode) {
@@ -218,45 +204,22 @@ public class GameData extends JPanel {
         int x = selectedCell.getX();
         int y = selectedCell.getY();
         CellState state = selectedCell.getCellState();
-        switch (keyCode) {
-            case 37:
-                //движение влево
+        Vector movingVector = getAdjacentElement(keyCode);
+        Vector currentVector = new Vector(x, y);
+        Vector changedVector = currentVector.addVector(movingVector);
 
-                if ((x > 0) && (field.get(y).get(x - 1).getCellState() == CellState.FREE)) {
-                    field.get(y).get(x - 1).setCellState(state);
-                    field.get(y).get(x).setCellState(CellState.FREE);
-                    selectedCell = field.get(y).get(x - 1);
-                    checkGameOver();
-                }
-                break;
-            case 38:
-                //движение вверх
-                if ((y > 0) && (field.get(y - 1).get(x).getCellState() == CellState.FREE)) {
-                    field.get(y - 1).get(x).setCellState(state);
-                    field.get(y).get(x).setCellState(CellState.FREE);
-                    selectedCell = field.get(y - 1).get(x);
-                    checkGameOver();
-                }
-                break;
-            case 39:
-                //движение вправо
-                if ((x < (FIELD_SIZE - 1)) && (field.get(y).get(x + 1).getCellState() == CellState.FREE)) {
-                    field.get(y).get(x + 1).setCellState(state);
-                    field.get(y).get(x).setCellState(CellState.FREE);
-                    selectedCell = field.get(y).get(x + 1);
-                    checkGameOver();
-                }
-                break;
-            case 40:
-                //движение вниз
-                if ((y < (FIELD_SIZE - 1)) && (field.get(y + 1).get(x).getCellState() == CellState.FREE)) {
-                    field.get(y + 1).get(x).setCellState(state);
-                    field.get(y).get(x).setCellState(CellState.FREE);
-                    selectedCell = field.get(y + 1).get(x);
-                    checkGameOver();
-                }
-                break;
+        if ((changedVector.getX() >= 0) && (changedVector.getY() >= 0)
+                && (changedVector.getX() < FIELD_SIZE)
+                && (changedVector.getY() < FIELD_SIZE)
+                && (field.getFieldElement(changedVector).getCellState() == CellState.FREE)) {
+            field.setFieldElement(changedVector, state);
+            field.setFieldElement(currentVector, CellState.FREE);
+            selectedCell = field.getFieldElement(changedVector);
         }
+
+
+        checkGameOver();
+
     }
 
     private void checkGameOver() {
@@ -264,7 +227,7 @@ public class GameData extends JPanel {
 
         for (int j = 0; j < FIELD_SIZE; j += 2) {
             for (int i = 0; i < FIELD_SIZE; i++) {
-                if (field.get(i).get(j).getCellState() != stateArray[j/2]) {
+                if (field.getFieldElement(new Vector(j, i)).getCellState() != stateArray[j/2]) {
                     return;
                 }
             }
@@ -273,6 +236,22 @@ public class GameData extends JPanel {
         System.out.println("You Win!");
         gameOver = true;
     }
+
+    private Vector getAdjacentElement(int value) {
+        switch (value) {
+            case 37:
+                return new Vector(-1, 0);
+            case 38:
+                return new Vector(0, -1);
+            case 39:
+                return new Vector(1, 0);
+            case 40:
+                return new Vector(0, 1);
+        }
+
+        return new Vector(0, 0);
+    }
+
 }
 
 
