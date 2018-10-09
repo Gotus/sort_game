@@ -6,28 +6,28 @@ import java.awt.*;
 public class Square extends JPanel {
 
     private Rectangle square;
-    private final int STEP = 10;
 
-    public Square(Vector location, int size) {
+    public Square(Location location, int size) {
 
         this.square = new Rectangle(location.getX(), location.getY(), size, size);
-
     }
 
     public int getSquareSize() {
+
         return (int) square.getHeight();
     }
 
-    public Vector getSquareCoordinates() {
-        return new Vector((int) square.getX(), (int) square.getY());
+    public Location getSquareCoordinates() {
+
+        return new Location((int) square.getX(), (int) square.getY());
     }
 
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g, int step) {
 
-        int x = (int) square.getX();
-        int y = (int) square.getY();
-        int size = (int) square.getHeight();
-        g.fillRect(250 + x*(size + STEP), 250 + y*(size + STEP), size, size);
+        long x = Math.round(square.getX());
+        long y = Math.round(square.getY());
+        long size = Math.round(square.getHeight());
+        g.fillRect((int) (250 + x * (size + step)), (int) (250 + y * (size + step)), (int) size, (int) size);
     }
 
 }
