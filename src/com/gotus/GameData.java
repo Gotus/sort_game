@@ -45,10 +45,15 @@ class Cell {
 
 public class GameData extends JPanel {
 
-    private Field field;
     private static final int FIELD_SIZE = 5;
+    private static final int SQUARE_SIZE = 50;
+    private static final int STEP = 10;
 
-    private Squares squares = new Squares();
+
+    private Field field;
+
+
+    private List<List<Square>> squares;
 
     private Cell selectedCell;
 
@@ -61,7 +66,19 @@ public class GameData extends JPanel {
         //Расстановка фишек
         placeGameChip();
 
+
         selectedCell = field.getFieldElement(new Vector(0, 0));
+
+        squares = new ArrayList<>(FIELD_SIZE);
+        for (int i = 0; i < FIELD_SIZE; i++) {
+
+            squares.add(i, new ArrayList<>(FIELD_SIZE));
+            for (int j = 0; j < FIELD_SIZE; j++) {
+
+                squares.get(i).add(new Square(new Vector(j, i), SQUARE_SIZE));
+            }
+        }
+
         gameOver = false;
 
 }
@@ -139,13 +156,11 @@ public class GameData extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
 
-        int size = squares.getSIZE();
-        int step = squares.getSTEP();
-        for (int i = 0; i < squares.getNUM_COLUMNS(); i++) {
-            for (int j = 0; j < squares.getNUM_ROWS(); j++) {
+        for (int i = 0; i < FIELD_SIZE; i++) {
+            for (int j = 0; j < FIELD_SIZE; j++) {
                 Color color = defineColor(field.getFieldElement(new Vector(j, i)).getCellState());
                 g.setColor(color);
-                g.fillRect(250 + j*(size + step), 250 + i*(size + step), size, size);
+                squares.get(i).get(j).paintComponent(g);
             }
         }
     }
