@@ -6,11 +6,12 @@ import java.util.List;
 
 public class Field {
 
-    private static final int FIELD_SIZE = 5;
+    private final int FIELD_SIZE = 5;
+    private final int SQUARE_SIZE = 50;
 
     List<List<Cell>> fieldElements;
 
-    public Field(int cellSize) {
+    public Field() {
 
         //Инициализация игрового поля
         fieldElements = new ArrayList<>(FIELD_SIZE);
@@ -20,7 +21,7 @@ public class Field {
             fieldElements.add(new ArrayList<>(FIELD_SIZE));
             for (int j = 0; j < FIELD_SIZE; j++) {
 
-                fieldElements.get(i).add(new  Cell(j, i, cellSize));
+                fieldElements.get(i).add(new  Cell(j, i, SQUARE_SIZE));
             }
         }
 
@@ -66,5 +67,13 @@ public class Field {
         }
 
         return null;
+    }
+
+    public int getSQUARE_SIZE() {
+        return SQUARE_SIZE;
+    }
+
+    public int getFIELD_SIZE() {
+        return FIELD_SIZE;
     }
 }

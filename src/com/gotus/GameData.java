@@ -9,11 +9,6 @@ import java.util.Random;
 
 public class GameData extends JPanel {
 
-    private static final int FIELD_SIZE = 5;
-    private static final int SQUARE_SIZE = 50;
-    private static final int STEP = 10;
-
-
     private Field field;
 
     private Cell selectedCell;
@@ -22,7 +17,7 @@ public class GameData extends JPanel {
 
     GameData() {
 
-        field = new Field(SQUARE_SIZE);
+        field = new Field();
 
         //Расстановка фишек
         placeGameChip();
@@ -51,10 +46,10 @@ public class GameData extends JPanel {
         List<Cell> available_cells = new ArrayList<>();
         Random rand = new Random();
 
-        for (int i = 0; i < FIELD_SIZE; i++) {
-            for (int j = 0; j < FIELD_SIZE; j += 2) {
+        for (int i = 0; i < field.getFIELD_SIZE(); i++) {
+            for (int j = 0; j < field.getFIELD_SIZE(); j += 2) {
 
-                    available_cells.add(new Cell(j, i, SQUARE_SIZE));
+                    available_cells.add(new Cell(j, i, field.getSQUARE_SIZE()));
             }
         }
 
@@ -81,8 +76,8 @@ public class GameData extends JPanel {
 
         CellState stateArray[] = {CellState.TYPE1, CellState.TYPE2, CellState.TYPE3};
 
-        for (int j = 0; j < FIELD_SIZE; j += 2) {
-            for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int j = 0; j < field.getFIELD_SIZE(); j += 2) {
+            for (int i = 0; i < field.getFIELD_SIZE(); i++) {
                 field.setFieldElement(new Vector(j, i), stateArray[j/2]);
             }
         }
@@ -92,9 +87,9 @@ public class GameData extends JPanel {
     }
 
     public void showField() {
-        for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int i = 0; i < field.getFIELD_SIZE(); i++) {
 
-            for (int j = 0; j < FIELD_SIZE; j++) {
+            for (int j = 0; j < field.getFIELD_SIZE(); j++) {
                 System.out.print(field.getFieldElement(new Vector(j, i)).getCellState() + " ");
             }
 
@@ -131,7 +126,7 @@ public class GameData extends JPanel {
         int i = (y - 250) / 60;
         int j = (x - 250) / 60;
 
-        if ((j < FIELD_SIZE) && (i < FIELD_SIZE)
+        if ((j < field.getFIELD_SIZE()) && (i < field.getFIELD_SIZE())
                 && (i >= 0) && (j >= 0)) {
             Cell selectedCell = field.getFieldElement(new Vector(j, i));
             if ((selectedCell.getCellState() != CellState.FREE) &&
@@ -162,8 +157,8 @@ public class GameData extends JPanel {
         Vector changedVector = currentVector.addVector(movingVector);
 
         if ((changedVector.getX() >= 0) && (changedVector.getY() >= 0)
-                && (changedVector.getX() < FIELD_SIZE)
-                && (changedVector.getY() < FIELD_SIZE)
+                && (changedVector.getX() < field.getFIELD_SIZE())
+                && (changedVector.getY() < field.getFIELD_SIZE())
                 && (field.getFieldElement(changedVector).getCellState() == CellState.FREE)) {
             field.setFieldElement(changedVector, state);
             field.setFieldElement(currentVector, CellState.FREE);
@@ -178,8 +173,8 @@ public class GameData extends JPanel {
     private void checkGameOver() {
         CellState stateArray[] = {CellState.TYPE1, CellState.TYPE2, CellState.TYPE3};
 
-        for (int j = 0; j < FIELD_SIZE; j += 2) {
-            for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int j = 0; j < field.getFIELD_SIZE(); j += 2) {
+            for (int i = 0; i < field.getFIELD_SIZE(); i++) {
                 if (field.getFieldElement(new Vector(j, i)).getCellState() != stateArray[j/2]) {
                     return;
                 }
