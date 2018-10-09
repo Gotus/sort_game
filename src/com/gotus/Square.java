@@ -8,7 +8,7 @@ public class Square extends JPanel {
     private Rectangle square;
     private final int STEP = 10;
 
-    Square(Vector location, int size) {
+    public Square(Vector location, int size) {
 
         this.square = new Rectangle(location.getX(), location.getY(), size, size);
 
