@@ -41,8 +41,9 @@ public class GameData extends JPanel {
 
         for (int i = 0; i < field_size; i++) {
             for (int j = 0; j < field_size; j += 2) {
-
-                available_cells.add(new Cell(j, i, field.getSQUARE_SIZE()));
+                available_cells.add(new Cell(j,
+                                             i,
+                                             field.getSQUARE_SIZE()));
             }
         }
 
@@ -50,14 +51,15 @@ public class GameData extends JPanel {
             boolean is_not_generated = true;
             int x;
             int y;
-            while (is_not_generated) {
 
+            while (is_not_generated) {
                 value = rand.nextInt(3);
 
                 if (num_type[value] > 0) {
                     x = i.getX();
                     y = i.getY();
-                    field.setFieldElement(new Location(x, y), defineCellState(value));
+                    field.setFieldElement(new Location(x, y),
+                                          defineCellState(value));
                     num_type[value]--;
                     is_not_generated = false;
                 }
@@ -66,24 +68,28 @@ public class GameData extends JPanel {
     }
 
     private void placeGameChipAlmostVictory() {
-
-        CellState stateArray[] = {CellState.TYPE1, CellState.TYPE2, CellState.TYPE3};
+        CellState stateArray[] = {CellState.TYPE1,
+                CellState.TYPE2, CellState.TYPE3};
 
         for (int j = 0; j < field_size; j += 2) {
             for (int i = 0; i < field_size; i++) {
-                field.setFieldElement(new Location(j, i), stateArray[j / 2]);
+                field.setFieldElement(new Location(j, i),
+                                      stateArray[j / 2]);
             }
         }
 
-        field.setFieldElement(new Location(1, 0), CellState.FREE);
-        field.setFieldElement(new Location(1, 1), CellState.FREE);
+        field.setFieldElement(new Location(1, 0),
+                              CellState.FREE);
+        field.setFieldElement(new Location(1, 1),
+                              CellState.FREE);
     }
 
     public void showField() {
         for (int i = 0; i < field_size; i++) {
-
             for (int j = 0; j < field_size; j++) {
-                System.out.print(field.getFieldElement(new Location(j, i)).getCellState() + " ");
+                System.out.print(field.
+                                 getFieldElement(new Location(j, i)).
+                                 getCellState() + " ");
             }
 
             System.out.println();
@@ -111,17 +117,17 @@ public class GameData extends JPanel {
     }
 
     public void setSelectedCell(int x, int y) {
+        int i = (y - 250) / 60;
+        int j = (x - 250) / 60;
 
         if (gameOver) {
             return;
         }
 
-        int i = (y - 250) / 60;
-        int j = (x - 250) / 60;
-
         if ((j < field_size) && (i < field_size)
                 && (i >= 0) && (j >= 0)) {
-            Cell selectedCell = field.getFieldElement(new Location(j, i));
+            Cell selectedCell = field.
+                                getFieldElement(new Location(j, i));
             if ((selectedCell.getCellState() != CellState.FREE) &&
                     (selectedCell.getCellState() != CellState.BLOCKED)) {
                 this.selectedCell = selectedCell;
@@ -134,6 +140,13 @@ public class GameData extends JPanel {
     }
 
     public void move(int keyCode) {
+        int x = selectedCell.getX();
+        int y = selectedCell.getY();
+        CellState state = selectedCell.getCellState();
+        Location movingLocation = defineLocation(keyCode);
+        Location currentLocation = new Location(x, y);
+        Location changedLocation = currentLocation.
+                addLocation(movingLocation);
 
         if (gameOver) {
             if (keyCode == EXIT_BUTTON) {
@@ -142,17 +155,12 @@ public class GameData extends JPanel {
             return;
         }
 
-        int x = selectedCell.getX();
-        int y = selectedCell.getY();
-        CellState state = selectedCell.getCellState();
-        Location movingLocation = getDirection(keyCode);
-        Location currentLocation = new Location(x, y);
-        Location changedLocation = currentLocation.addLocation(movingLocation);
-
-        if ((changedLocation.getX() >= 0) && (changedLocation.getY() >= 0)
+        if ((changedLocation.getX() >= 0)
+                && (changedLocation.getY() >= 0)
                 && (changedLocation.getX() < field_size)
                 && (changedLocation.getY() < field_size)
-                && (field.getFieldElement(changedLocation).getCellState() == CellState.FREE)) {
+                && (field.getFieldElement(changedLocation).getCellState()
+                    == CellState.FREE)) {
             field.setFieldElement(changedLocation, state);
             field.setFieldElement(currentLocation, CellState.FREE);
             selectedCell = field.getFieldElement(changedLocation);
@@ -168,7 +176,9 @@ public class GameData extends JPanel {
 
         for (int j = 0; j < field_size; j += 2) {
             for (int i = 0; i < field_size; i++) {
-                if (field.getFieldElement(new Location(j, i)).getCellState() != stateArray[j / 2]) {
+                if (field.
+                        getFieldElement(new Location(j, i)).
+                        getCellState() != stateArray[j / 2]) {
                     return;
                 }
             }
@@ -178,7 +188,7 @@ public class GameData extends JPanel {
         gameOver = true;
     }
 
-    private Location getDirection(int value) {
+    private Location defineLocation(int value) {
         switch (value) {
             case 37:
                 return new Location(-1, 0);

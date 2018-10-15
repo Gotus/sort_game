@@ -14,14 +14,15 @@ public class Frame extends JFrame {
     }
 
     private void createGUI() {
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         getContentPane().setLayout(new BorderLayout());
 
         GameData gameData = new GameData();
 
-        JLabel label = new JLabel("Расставьте фишки соответственно цветам, стоящим над столбцом");
+        JLabel label = new JLabel("Расставьте фишки  "
+                                  + "соответственно цветам, "
+                                  + "стоящим над столбцом");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setVerticalAlignment(SwingConstants.NORTH);
 
@@ -65,7 +66,6 @@ public class Frame extends JFrame {
 
             }
         });
-
         gameData.setFocusable(true);
         gameData.requestFocusInWindow();
 
